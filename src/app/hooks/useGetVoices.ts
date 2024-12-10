@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import getElevenLabsClient from "../utils/getElevenLabsClient";
 import { ElevenLabs } from "elevenlabs";
-
-type ApiDataFetchingState = "initial" | "fetching" | "fetched" | "error";
+import { ApiDataFetchingState } from "../types";
 
 export default function useGetSpeech(): [
   ElevenLabs.Voice[] | null,

@@ -7,7 +7,7 @@ interface IGetSpeech {
   voiceId: string;
 }
 
-export default async function useGetSpeech(
+export default async function getSpeech(
   payload: IGetSpeech
 ): Promise<internal.Readable> {
   const { text, voiceId = "21m00Tcm4TlvDq8ikWAM" } = payload;
