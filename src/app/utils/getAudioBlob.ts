@@ -1,19 +1,24 @@
-import internal from "stream";
-
-async function getAudioBlob(stream: internal.Stream): Promise<Blob | null> {
+async function getAudioBlob(
+  stream: ReadableStream<Uint8Array> | null
+): Promise<Blob | null> {
   if (!stream) {
     return null;
   }
 
-  const chunks = [];
+  const chunks: Uint8Array[] = [];
 
-  //@ts-expect-error will fix later
-  for await (const chunk of stream) {
-    chunks.push(chunk);
+  const reader = stream.getReader();
+  let done = false;
+
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    if (value) {
+      chunks.push(value);
+    }
+    done = readerDone;
   }
 
-  const audioBlob = new Blob(chunks, { type: "audio/mpeg" }); // Adjust MIME type if needed
-
+  const audioBlob = new Blob(chunks, { type: "audio/mpeg" });
   return audioBlob;
 }
 

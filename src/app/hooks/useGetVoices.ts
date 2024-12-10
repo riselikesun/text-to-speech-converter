@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import getElevenLabsClient from "../utils/getElevenLabsClient";
 import { ElevenLabs } from "elevenlabs";
 import { ApiDataFetchingState } from "../types";
 
@@ -13,9 +12,11 @@ export default function useGetSpeech(): [
   useEffect(() => {
     async function fetchData() {
       try {
-        const client = getElevenLabsClient();
+        const response = await fetch("/api/voices", {
+          method: "GET",
+        });
 
-        const { voices } = await client.voices.getAll();
+        const { voices } = await response.json();
 
         setVoice(voices);
         setStatus("fetched");

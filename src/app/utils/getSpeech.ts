@@ -1,7 +1,3 @@
-import internal from "stream";
-import getElevenLabsClient from "../utils/getElevenLabsClient";
-import { getConfig } from "../config";
-
 interface IGetSpeech {
   text: string;
   voiceId: string;
@@ -9,14 +5,19 @@ interface IGetSpeech {
 
 export default async function getSpeech(
   payload: IGetSpeech
-): Promise<internal.Readable> {
+): Promise<ReadableStream<Uint8Array> | null> {
   const { text, voiceId = "21m00Tcm4TlvDq8ikWAM" } = payload;
 
-  const config = getConfig();
-  const client = getElevenLabsClient();
-
-  return client.textToSpeech.convert(voiceId, {
-    model_id: config.ElevenLabsVoiceModelId,
-    text,
+  const response = await fetch("/api/text-to-speech", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text,
+      voiceId,
+    }),
   });
+
+  return response.body;
 }
