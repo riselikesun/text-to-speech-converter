@@ -14,8 +14,8 @@ const SpeechReducer = (
       return { ...speechState, selectedVoice: action.voice };
     }
 
-    case "UPDATE_SPEECH": {
-      return { ...speechState, speechBlob: action.speech };
+    case "UPDATE_AUDIO_BLOB": {
+      return { ...speechState, audioBlob: action.audioBlob };
     }
 
     default: {

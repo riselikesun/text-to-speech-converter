@@ -1,7 +1,12 @@
 "use client";
 
 import { Box, Container, Divider, Paper, Typography } from "@mui/material";
-import { VoiceSelector, TextInput, TransformButton } from "./components";
+import {
+  VoiceSelector,
+  TextInput,
+  TransformButton,
+  AudioPlayer,
+} from "./components";
 
 export default function Home() {
   return (
@@ -15,22 +20,26 @@ export default function Home() {
       >
         Text To Speech Converter
       </Typography>
-      <Paper elevation={3} sx={{ padding: 2, display: "flex", gap: 2 }}>
-        <TextInput />
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap={2}
-          minWidth="250px"
-          paddingTop={1}
-        >
-          <Typography fontWeight={600} color="textSecondary">
-            Options
-          </Typography>
-          <VoiceSelector />
-          <TransformButton />
+      <Paper elevation={3} sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex" }}>
+          <TextInput />
+          <Divider orientation="vertical" variant="middle" flexItem />
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={2}
+            minWidth="250px"
+            padding={2}
+          >
+            <Typography fontWeight={600} color="textSecondary" >
+              Options
+            </Typography>
+            <VoiceSelector />
+            <TransformButton />
+          </Box>
         </Box>
+        <Divider flexItem />
+        <AudioPlayer />
       </Paper>
     </Container>
   );

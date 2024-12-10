@@ -8,7 +8,7 @@ const TextArea = styled(TextareaAutosize)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontFamily: "inter",
   resize: "none",
-  padding: 8,
+  padding: 16,
   minWidth: "400px",
 }));
 
@@ -22,7 +22,7 @@ const TextInputUI = (props: ITextInputUI) => {
 
   return (
     <TextArea
-      minRows={10}
+      minRows={20}
       value={value}
       placeholder="Enter some text to convert to speech"
       onChange={onChange}

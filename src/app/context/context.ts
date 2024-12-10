@@ -1,17 +1,16 @@
 import { createContext, useContext } from "react";
 import { ActionTypes } from "./action";
-import internal from "stream";
 
 export interface IInitialSpeechState {
   selectedVoice: string;
   inputText: string;
-  speechBlob: null | internal.Readable;
+  audioBlob: Blob | null;
 }
 
 export const initialSpeechState: IInitialSpeechState = {
   selectedVoice: "",
   inputText: "Good day, how are you?",
-  speechBlob: null,
+  audioBlob: null,
 };
 
 const SpeechContext = createContext<IInitialSpeechState>(initialSpeechState);

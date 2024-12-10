@@ -1,8 +1,6 @@
-import internal from "stream";
-
 type UPDATE_TEXT = "UPDATE_TEXT";
 type UPDATE_VOICE = "UPDATE_VOICE";
-type UPDATE_SPEECH = "UPDATE_SPEECH";
+type UPDATE_AUDIO_BLOB = "UPDATE_AUDIO_BLOB";
 
 interface IUpdateText {
   type: UPDATE_TEXT;
@@ -15,8 +13,8 @@ interface IUpdateVoice {
 }
 
 interface IUpdateSpeech {
-  type: UPDATE_SPEECH;
-  speech: null | internal.Readable;
+  type: UPDATE_AUDIO_BLOB;
+  audioBlob: Blob | null;
 }
 
 export type ActionTypes = IUpdateText | IUpdateVoice | IUpdateSpeech;

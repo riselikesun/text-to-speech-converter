@@ -6,6 +6,7 @@ import {
   useSpeechContext,
   useSpeechDispatchContext,
 } from "@/app/context/context";
+import { getAudioBlob } from "@/app/utils";
 
 const TransformButton = () => {
   const [fetchingStatus, setFetchingStatus] =
@@ -26,7 +27,9 @@ const TransformButton = () => {
         voiceId: selectedVoice,
       });
 
-      dispatch({ type: "UPDATE_SPEECH", speech: speechResponse });
+      const audioBlob = await getAudioBlob(speechResponse);
+
+      dispatch({ type: "UPDATE_AUDIO_BLOB", audioBlob });
 
       setFetchingStatus("fetched");
     } catch {
