@@ -7,6 +7,7 @@ async function getAudioBlob(stream: internal.Stream): Promise<Blob | null> {
 
   const chunks = [];
 
+  //@ts-expect-error will fix later
   for await (const chunk of stream) {
     chunks.push(chunk);
   }
