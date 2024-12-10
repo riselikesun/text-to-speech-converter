@@ -1,4 +1,4 @@
-import internal, { Readable } from "stream";
+import internal from "stream";
 
 async function getAudioBlob(stream: internal.Stream): Promise<Blob | null> {
   if (!stream) {
@@ -17,9 +17,3 @@ async function getAudioBlob(stream: internal.Stream): Promise<Blob | null> {
 }
 
 export default getAudioBlob;
-
-// const webStream = Readable.toWeb(stream);
-
-// for await (const chunk of webStream) {
-//   console.log(chunk); // Process each chunk
-// }
