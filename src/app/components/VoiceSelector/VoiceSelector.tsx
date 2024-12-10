@@ -1,23 +1,35 @@
-import { useState } from "react";
 import { useGetVoices } from "../../hooks";
 import VoiceSelectorUI from "./VoiceSelectorUI";
 import { SelectChangeEvent } from "@mui/material";
+import {
+  useSpeechContext,
+  useSpeechDispatchContext,
+} from "@/app/context/context";
+import { useEffect } from "react";
 
 const VoiceSelector = () => {
-  const [value, setValue] = useState("");
   const [voices, status] = useGetVoices();
+  const { selectedVoice } = useSpeechContext();
+  const dispatch = useSpeechDispatchContext();
 
-  if (!value && status === "fetched" && voices) {
-    const firstVoice = voices[0].voice_id;
-
-    setValue(firstVoice);
-  }
+  useEffect(() => {
+    if (!selectedVoice && status === "fetched" && voices?.length) {
+      const firstVoice = voices[0].voice_id;
+      dispatch({ type: "UPDATE_VOICE", voice: firstVoice });
+    }
+  }, [selectedVoice, status, voices, dispatch]);
 
   const onChange = (event: SelectChangeEvent<string>) => {
-    setValue(event.target.value);
+    dispatch({ type: "UPDATE_VOICE", voice: event.target.value });
   };
 
-  return <VoiceSelectorUI value={value} voices={voices} onChange={onChange} />;
+  return (
+    <VoiceSelectorUI
+      value={selectedVoice}
+      voices={voices || []}
+      onChange={onChange}
+    />
+  );
 };
 
 export default VoiceSelector;

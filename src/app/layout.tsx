@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CssBaseline } from "@mui/material";
+import { SpeechProvider } from "./context/SpeechProvider";
 
 export const metadata: Metadata = {
   title: "Text to Speech Converter",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CssBaseline />
-        {children}
+        <SpeechProvider>{children}</SpeechProvider>
       </body>
     </html>
   );

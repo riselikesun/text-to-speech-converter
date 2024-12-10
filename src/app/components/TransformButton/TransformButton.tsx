@@ -2,15 +2,16 @@ import { useState } from "react";
 import TranslateButtonUI from "./TransformButtonUI";
 import getSpeech from "../../utils/getSpeech";
 import { ApiDataFetchingState } from "@/app/types";
-import internal from "stream";
+import {
+  useSpeechContext,
+  useSpeechDispatchContext,
+} from "@/app/context/context";
 
 const TransformButton = () => {
   const [fetchingStatus, setFetchingStatus] =
     useState<ApiDataFetchingState>("initial");
-  const [speech, setSpeech] = useState<null | internal.Readable>(null);
-
-  const text = "Good day, how are you?";
-  const voiceId = "9BWtsMINqrJLrRacOk9x";
+  const { inputText, selectedVoice } = useSpeechContext();
+  const dispatch = useSpeechDispatchContext();
 
   const onClick = async () => {
     if (fetchingStatus === "fetching") {
@@ -20,9 +21,12 @@ const TransformButton = () => {
     try {
       setFetchingStatus("fetching");
 
-      const speechResponse = await getSpeech({ text, voiceId });
+      const speechResponse = await getSpeech({
+        text: inputText,
+        voiceId: selectedVoice,
+      });
 
-      setSpeech(speechResponse);
+      dispatch({ type: "UPDATE_SPEECH", speech: speechResponse });
 
       setFetchingStatus("fetched");
     } catch {
